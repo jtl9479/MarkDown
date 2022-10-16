@@ -85,3 +85,107 @@
 <BR>
 
 <H2>데이터 형변환의 방식</H2>
+**데이터 형변환의 방식**
+
+|종류|설명|
+|----|---|
+|명시적 형변환|데이터 형변환 함수로 데이터형을 변환하도록 명시해 주는 경우(수동)|
+|암시적 형변환|DBMS가 자동으로 데이터형을 변환하는 경우(수동)|
+
+<u>명시적 형변환은 TO_CHAR, TO_NUMBER, TO_DATE등의 함수를 이용해서 명시적으로 데이터형을 변환하는 것</u>
+
+<u>암시적 형변환은 DBMS가 자동으로 데이터형을 변환하는것</u>
+
+<br>
+
+날짜형 데이터 연산
+|SQL|결과|설명|
+|:---|:---|:----|
+|SELECT|||
+|TO_CHAR(SYSDATE,'YYYY/MM/DD')|2022/10/16|날짜형을 문자형으로 변환|
+|TO_CHAR(SYSDATE,'YYYY/MM/DD HH24:MI:SS')|2022/10/16 23:34:28|날짜형을 문자형으로 변환|
+|TO_CHAR(10.25,'$999,999,999,999')|$10.25|숫자형을 문자형으로 변환|
+
+<br>
+
+<h3>단일행 case 표현의 종류</h3>
+
+특정 값에 대해서 조건에 따라 각기 다른 값을 리턴하도록 하는 것을 CASE표현이라고 합니다.
+<br>
+
+CASE 표현의 종류
+|SQL|설명|
+|:---|:---|
+|**CASE WHEN** 조건 **THEN** 값 혹은 SQL문 **ELSE** 값 혹은 SQL문 **END**| 조건이 맞으면 THEN절을 수행하고 그렇지 않으면 ELSE절을 실행한다.|
+|DECODE(조건1, 값1, 조건2, 값2, 디폴트 값)|조건1이 TRUE이면 값1을 가져오고, 그렇지 않고 조건2가 TRUE이면 값2를 가져고오, 그렇지 않으면 디폴트 값을 노출한다.|
+
+<BR>
+
+**CASE WHEN문을 이용한 CASE 표현**
+		
+```SQL
+ SELECT 
+ 	CASE WHEN A.INDUTY_CL_SE_CD = 'ICS001'
+ 		 THEN '대'
+ 		 WHEN A.INDUTY_CL_SE_CD = 'ICS002'
+ 		 THEN '중'
+ 		 WHEN A.INDUTY_CL_SE_CD = 'ICS003'
+ 		 THEN '소'
+ 		 ELSE ''
+ 	END
+   FROM TB_INDUTY_CL_SE A;
+```
+<br>
+
+**DECODE문을 이용한 CASE 표현**
+		
+```SQL
+  SELECT DECODE(A.INDUTY_CL_SE_CD
+                ,'ICS001', '대'
+				,'ICS002', '중'
+				,'ICS003', '소'
+				, '')
+  FROM TB_INDUTY_CL_SE A;
+```
+
+<br>
+
+<h3>NULL 연산 결과</h3>
+
+<u>NULL이란 "어떠한 값도 가지고 있지 않다" 라는 뜻을 가진다</u><br>
+NULL은 빈칸과 같은 개념으로 이용할수 없는, 할당되지 않은 적용 불가능을 의미한다.<br>
+NULL이 표함된 산술식의 결과는 언제나 NULL이 된다.
+|연산|결과|
+|---|---|
+|NULL+2|NULL|
+|NULL-2|NULL|
+|NULL*2|NULL|
+|NULL/2|NULL|
+
+<h3>NULL 관련 함수 사용</h3>
+
+NULL이 가지는 특수성으로 인해 적절한NULL처리는 SQL문 작성 시 매우중요하다<br>
+그러므로 NULL 관련 함수를 사용하여 적절한 NULL값 처리가 필요하다.<br>
+
+NULL처리 함수 사용 예시
+|SQL|결과|설명|
+|:---|:---|:---|
+|SELECT|||
+|NULLIF('SQLD','SQLP')|SQLD|두 문자열이 다르면 첫 번째 문자열 출력|
+|NULLIF('SQLD','SQLD')|NULL|두 문자열이 같으면 NULL 출력|
+|NVL(NULLIF('SQLD','SQLD'),'같음)|같음|두 문자열 비교후 결과값이 NULL인 경우 '같음' 출력|
+|COALESCE(NULL,NULL,'SQLD')|SQLD|NULL이 아닌 첫번째 인자 출력|
+|COALESCE(NULL,'SQLP','SQLD')|SQLP|NULL이 아닌 첫번째 인자 출력|
+|COALESCE('SQL','SQLP','SQLD')|SQLP|SQL 아닌 첫번째 인자 출력|
+
+<br>
+
+
+
+
+
+
+
+
+
+
