@@ -2,4 +2,4 @@
 
 <h2>계층형 질의</h2>
 
-<img src=".\test.PNG" width="50%" height="50%">
+<img src=".\test.PNG" width="150px" height="150px">
