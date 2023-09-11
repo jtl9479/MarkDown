@@ -1,4 +1,4 @@
-package java객체지향디자인패턴.chapter2객체지향원리.src;
+package java객체지향디자인패턴.chapter1객체지향모델링.src;
 
 public class cord2_4 {
 
